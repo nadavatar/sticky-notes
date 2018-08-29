@@ -1,4 +1,10 @@
-let stickyNotes = getData('stickyNotes') || [];
+let stickyNotes = [];
+
+getStickyNotes()
+.then(_stickyNotes => {
+    stickyNotes = _stickyNotes;
+    renderList();
+});
 
 
 function addStickyNote() {
@@ -77,9 +83,10 @@ function deleteStickyNote(stickNoteId) {
 }
 
 
-function getData(dataName) {
+function getStickyNotes() {
     try {
-        return JSON.parse(localStorage.getItem(dataName));
+        return fetch('sticky-notes')
+                .then(response => response.json());
     }
     catch (e) {
         return null;
@@ -89,6 +96,3 @@ function getData(dataName) {
 function setData(dataName, dataValue) {
     localStorage.setItem(dataName, JSON.stringify(value));
 }
-
-
-window.addEventListener('load', renderList);
