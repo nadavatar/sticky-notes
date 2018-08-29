@@ -1,0 +1,16 @@
+:not(.edit-mode) .edit-element {
+    display: none;
+}
+
+.edit-mode .edit-element {
+    display: inline;
+}
+
+.edit-mode .non-edit-element {
+    display: none;
+}
+
+.clickable {
+    cursor: pointer;
+    padding: 5px;
+}
