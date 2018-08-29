@@ -1,30 +1,33 @@
-var stickyNotes = [
-    {
-        id: Date.now(),
-        content: 'Do Something'
-    },
-    {
-        id: Date.now() + 1,
-        content: 'Do Something else'
-    },
-];
+let stickyNotes = getData('stickyNotes') || [];
+
 
 function addStickyNote() {
+    const contentElement = document.getElementById('stickyNoteContent');
+
     // take the content
-    const content = document.getElementById('stickyNoteContent').value;
+    const content = contentElement.value;
     
     // add to the sticky note list
     stickyNotes.push({
         content,
         id: Date.now(),
     });
+    localStorage.setItem('stickyNotes', JSON.stringify(stickyNotes));
 
     // Render list
     renderList();
+
+    document.getElementById('stickyNoteContent').value = '';
 }
 
-const button = document.getElementById('addStickyNote');
-button.addEventListener('click', addStickyNote);
+const addButton = document.getElementById('addStickyNote');
+addButton.addEventListener('click', addStickyNote);
+enterClick = document.getElementById('stickyNoteContent');
+enterClick.addEventListener('keypress', function(e){
+    if (e.keyCode == 13){
+        addStickyNote();
+    }
+})
 
 const stickyNotesHtmlTemplate = `
 <table class="table">
@@ -69,6 +72,22 @@ function deleteStickyNote(stickNoteId) {
     stickyNotes = stickyNotes.filter(stickyNote => stickyNote.id !== stickNoteId);
 
     renderList();
+
+    setData('stickyNotes', stickyNotes);
+}
+
+
+function getData(dataName) {
+    try {
+        return JSON.parse(localStorage.getItem(dataName));
+    }
+    catch (e) {
+        return null;
+    }
+}
+
+function setData(dataName, dataValue) {
+    localStorage.setItem(dataName, JSON.stringify(value));
 }
 
 
