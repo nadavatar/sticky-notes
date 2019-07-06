@@ -17,11 +17,10 @@ mongo.connect(mongoUrl, { useNewUrlParser: true }, async function(
     const db = connection.db("stickyNotes");
     const stickyNotesCollection = db.collection("stickyNotes");
     stickyNotes = await stickyNotesCollection.find({}).toArray();
+    console.log(stickyNotes);
   }
   connection.close();
 });
-
-console.log(stickyNotes);
 
 app.use(express.static("./src/public"));
 
