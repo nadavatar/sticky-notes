@@ -513,7 +513,7 @@ expand-brackets@^2.1.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
-express@^4.16.3:
+express@^4.17.1:
   version "4.17.1"
   resolved "https://registry.yarnpkg.com/express/-/express-4.17.1.tgz#4491fc38605cf51f8629d39c2b5d026f98a4c134"
   integrity sha512-mHJ9O79RqluphRrcw2X/GTh3k9tVv8YcoyY4Kkh4WDMUYKRZUq0h1o0w2rrrxBqM7VoeUVqgb27xlEMXTnYt4g==
@@ -1203,6 +1203,13 @@ mkdirp@^0.5.0, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
+mongo@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/mongo/-/mongo-0.1.0.tgz#c8af0f8df98d4894b772b37342987c3becf3718c"
+  integrity sha1-yK8PjfmNSJS3crNzQph8O+zzcYw=
+  dependencies:
+    mongodb "*"
+
 mongodb-core@3.2.7:
   version "3.2.7"
   resolved "https://registry.yarnpkg.com/mongodb-core/-/mongodb-core-3.2.7.tgz#a8ef1fe764a192c979252dacbc600dc88d77e28f"
@@ -1214,12 +1221,21 @@ mongodb-core@3.2.7:
   optionalDependencies:
     saslprep "^1.0.0"
 
-mongodb@^3.2.7:
+mongodb@*:
   version "3.2.7"
   resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-3.2.7.tgz#8ba149e4be708257cad0dea72aebb2bbb311a7ac"
   integrity sha512-2YdWrdf1PJgxcCrT1tWoL6nHuk6hCxhddAAaEh8QJL231ci4+P9FLyqopbTm2Z2sAU6mhCri+wd9r1hOcHdoMw==
   dependencies:
     mongodb-core "3.2.7"
+    safe-buffer "^5.1.2"
+
+mongodb@^3.3.0-beta2:
+  version "3.3.0-beta2"
+  resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-3.3.0-beta2.tgz#e18b2f2b21c2d4b5041962f1b38599ed768c6ee8"
+  integrity sha512-Z8L7VwLx4omRw4twLQ00tPxVrfDi6pELFR4oCDAu8rDUjhtmH7vsBtS9idqBTbvkcx7w9eaN+m2h4aPkXlnpDg==
+  dependencies:
+    bson "^1.1.1"
+    require_optional "^1.0.1"
     safe-buffer "^5.1.2"
 
 ms@2.0.0:

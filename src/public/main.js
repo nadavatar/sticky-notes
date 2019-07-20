@@ -1,4 +1,5 @@
-let stickyNotes = [];
+let stickyNotes = []
+
 //get The Current Notes From The Server
 getStickyNotesFromServer();
 
@@ -17,11 +18,13 @@ function addStickyNote() {
 
   // take the content
   const content = contentElement.value;
+  //get the id of the last sticky note
+  let currentId = stickyNotes[stickyNotes.length - 1].id + 1;
 
   // add to the sticky note list
   stickyNotes.push({
     content,
-    id: Date.now() + 10
+    id: currentId
   });
 
   // Render list
@@ -34,7 +37,7 @@ function addStickyNote() {
 const addButton = document.getElementById("addStickyNote");
 addButton.addEventListener("click", addStickyNote);
 enterClick = document.getElementById("stickyNoteContent");
-enterClick.addEventListener("keypress", function(e) {
+enterClick.addEventListener("keypress", function (e) {
   if (e.keyCode == 13) {
     addStickyNote();
   }
@@ -43,8 +46,7 @@ enterClick.addEventListener("keypress", function(e) {
 const stickyNotesHtmlTemplate = `
 <table class="table">
     <thead>
-        <th>Id</th>
-        <th>Content</th>
+        <th><b>Content</b></th>
         <th></th>
         <tbody>
             {{notesPlaceholder}}
@@ -72,7 +74,7 @@ function getStickyNotesRows() {
 
     html += `
             <tr id="stickyNote-${stickyNote.id}">
-                <td>${stickyNote.id}</td>
+                
                 <td>
                     <span class="sticky-content non-edit-element">${
                       stickyNote.content
@@ -105,7 +107,7 @@ function toggleEditMode(stickyNoteId) {
   const stickyNoteRow = document.getElementById(`stickyNote-${stickyNoteId}`);
   stickyNoteRow.classList.add("edit-mode");
   enterEditClick = document.getElementById("stickyNoteContent");
-  enterEditClick.addEventListener("keypress", function(e) {
+  enterEditClick.addEventListener("keypress", function (e) {
     if (e.keyCode == 13) {
       updateStickyNote(stickyNoteId);
     }

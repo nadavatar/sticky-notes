@@ -1,28 +1,35 @@
 const express = require("express");
-const mongo = require("mongodb").MongoClient;
 const app = express();
+//Mongodb settings
+const mongo = require("mongodb").MongoClient;
+const mongoUrl = "mongodb://localhost:27017/";
 
-let stickyNotes = [];
 
-//mongodb get all sticky notes
-const mongoUrl = "mongodb://localhost:27017";
-mongo.connect(mongoUrl, { useNewUrlParser: true }, async function(
-  err,
-  connection
-) {
-  if (err) {
-    console.error(err);
-  } else {
-    console.log("Succesfully connected to the database");
-    const db = connection.db("stickyNotes");
-    const stickyNotesCollection = db.collection("stickyNotes");
-    stickyNotes = await stickyNotesCollection.find({}).toArray();
-    console.log(stickyNotes);
-  }
-  connection.close();
-});
+let stickyNotes = [{
+  content: "Some sticky note",
+  id: 1
+}, {
+  content: "Another sticky note",
+  id: 2
+}];
 
 app.use(express.static("./src/public"));
+
+mongo.connect(mongoUrl, function (err, client) {
+  if (err) throw err;
+
+  const db = client.db("stickyNotes");
+  db.collection("stickyNotes").find({}).toArray(function (err, result) {
+    if (err) throw err;
+
+    result.forEach((document) => {
+      delete document["_id"];
+      stickyNotes.push(document);
+    })
+
+    client.close();
+  })
+})
 
 app.get("/sticky-notes", (req, res) => {
   console.log("Got a request for sticky notes");
