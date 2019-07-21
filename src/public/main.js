@@ -5,7 +5,7 @@ getStickyNotesFromServer();
 
 async function getStickyNotesFromServer() {
   try {
-    const response = await axios.get("http://localhost:3000/sticky-notes");
+    const response = await axios.get("http://localhost:3000/getStickyNotes");
     stickyNotes = response.data;
     renderList();
   } catch (error) {
@@ -13,7 +13,7 @@ async function getStickyNotesFromServer() {
   }
 }
 
-function addStickyNote() {
+async function addStickyNote() {
   const contentElement = document.getElementById("stickyNoteContent");
 
   // take the content
@@ -21,16 +21,26 @@ function addStickyNote() {
   //get the id of the last sticky note
   let currentId = stickyNotes[stickyNotes.length - 1].id + 1;
 
-  // add to the sticky note list
-  stickyNotes.push({
+  const mongoDocument = {
     content,
     id: currentId
-  });
-
-  // Render list
-  renderList();
+  };
 
   document.getElementById("stickyNoteContent").value = "";
+
+  try {
+    const response = await axios.post("http://localhost:3000/addStickyNote", mongoDocument);
+    if (response.status != 200) {
+      console.error(`Got ${response.status} from the server`);
+    } else {
+      renderList();
+    }
+  } catch (error) {
+    console.error(error);
+  }
+
+  // Render list
+  getStickyNotesFromServer();
 }
 
 //add event listeners to the add button and method
