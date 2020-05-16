@@ -7,11 +7,12 @@
     "build": "parcel ./src/public/index.html",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./src/server.js",
-    "watch": "nodemon ./src/server.js"
+    "watch": "nodemon ./src/server.js",
+    "build": "npm install"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
+  "devDepe,ndencies": {
     "nodemon": "^1.18.4"
   },
   "dependencies": {
